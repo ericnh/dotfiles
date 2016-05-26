@@ -73,6 +73,16 @@ function herokuu() {
   fi
 }
 
+function pull_db() {
+  cd /web/vhosts/eventbeyond_api
+  heroku pg:backups capture --app api-eventbeyond
+  curl -o ~/Desktop/latest.dump `heroku pg:backups public-url --app api-eventbeyond`
+  rake db:drop
+  rake db:create
+  pg_restore --verbose --no-acl --no-owner -h localhost -d evanta365 ~/Desktop/latest.dump
+  rake db:migrate
+}
+
 function heroku_stage() {
   git checkout develop &&
   git pull origin develop &&
