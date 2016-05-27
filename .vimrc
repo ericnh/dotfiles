@@ -10,6 +10,7 @@ call vundle#begin()
   Plugin 'scrooloose/nerdtree'         " file management
   Plugin 'mileszs/ack.vim'             " text search
   Plugin 'valloric/youcompleteme'      " code completion
+  Plugin 'tpope/vim-rails'             " rails helper
   Plugin 'scrooloose/nerdcommenter'    " comment helper
   Plugin 'vim-airline/vim-airline'     " statusline helper
   Plugin 't9md/vim-textmanip'          " movement helper

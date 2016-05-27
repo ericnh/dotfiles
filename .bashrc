@@ -19,7 +19,9 @@ PS1='\[\e[00;36m\]\W\[\e[0m\][\[\e[00;32m\]$(git_branch)\[\e[0m\]]$ '
 
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
-export EDITOR=nano
+export EDITOR=vim
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 alias sshavail='cat ~/.ssh/config'
 alias tailit='tail -f website/data/logs/php_errors'
@@ -34,15 +36,13 @@ alias restartVirtualBox='sudo /Library/StartupItems/VirtualBox/VirtualBox restar
 
 # project shortcuts
 alias bh="cd /web/vhosts/sandbox.bluehawk.evanta.com/website/"
-alias api="cd /web/vhosts/EvantaAccessAPI"
-alias ev="cd /web/vhosts/sandbox.evanta.com/"
 alias tailBH="tail -f /web/vhosts/sandbox.bluehawk.evanta.com/website/data/logs/php_errors"
 
 # edit this profile
 alias profile="cat ~/.bash_profile"
 function editProfile() {
-  vim ~/.bash_profile
-  source ~/.bash_profile
+  vim ~/.bashrc
+  source ~/.bashrc
 }
 
 # Should allow you to run heroku rails tasks i.e. herokuu run rake db:migrate
@@ -75,11 +75,15 @@ function herokuu() {
 
 function pull_db() {
   cd /web/vhosts/eventbeyond_api
-  heroku pg:backups capture --app api-eventbeyond
-  curl -o ~/Desktop/latest.dump `heroku pg:backups public-url --app api-eventbeyond`
+  # if you pass in any given argument then it will pull down a new dump
+  if [ $1 ]
+  then
+    heroku pg:backups capture --app api-eventbeyond
+    curl -o /web/vhosts/eventbeyond_api/latest.dump `heroku pg:backups public-url --app api-eventbeyond`
+  fi
   rake db:drop
   rake db:create
-  pg_restore --verbose --no-acl --no-owner -h localhost -d evanta365 ~/Desktop/latest.dump
+  pg_restore --verbose --no-acl --no-owner -h localhost -d evanta365 /web/vhosts/eventbeyond_api/latest.dump
   rake db:migrate
 }
 
@@ -92,19 +96,6 @@ function heroku_stage() {
   git push origin heroku_stage &&
   git checkout develop 
 }
-
-function ^() {
-  if pwd == "/web/vhosts"
-    then
-      echo "true"
-    else
-      echo "false"
-  fi
-}
-
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
 
 function prod_diff() {
   git checkout develop &&
