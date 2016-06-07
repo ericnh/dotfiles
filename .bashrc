@@ -39,7 +39,7 @@ alias bh="cd /web/vhosts/sandbox.bluehawk.evanta.com/website/"
 alias tailBH="tail -f /web/vhosts/sandbox.bluehawk.evanta.com/website/data/logs/php_errors"
 
 # edit this profile
-alias profile="cat ~/.bash_profile"
+alias profile="cat ~/.bashrc"
 function editProfile() {
   vim ~/.bashrc
   source ~/.bashrc

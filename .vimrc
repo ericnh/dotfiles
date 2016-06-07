@@ -1,7 +1,7 @@
 """ PLUGINS
 set nocompatible                  " be iMproved, required 
+syntax on
 filetype off                      " required 
-filetype plugin indent on    " required
 set rtp+=~/.vim/bundle/Vundle.vim " set the runtime path to include Vundle and initialize
 
 call vundle#begin()
@@ -42,6 +42,11 @@ nnoremap k gk
 " move to beginning/end of line
 map B ^
 map E $
+" window navigation
+nmap <silent> <Up> :wincmd k<CR>
+nmap <silent> <Down> :wincmd j<CR>
+nmap <silent> <Left> :wincmd h<CR>
+nmap <silent> <Right> :wincmd l<CR>
  
 """ PLUGIN MAPPINGS
 " nerdtree mapping
@@ -86,7 +91,7 @@ xmap <C-l> <Plug>(textmanip-move-right)
 
 
 """ SYNTAX
-syntax enable
+filetype plugin indent on
 set autoindent
 au BufNewFile,BufRead *.ejs set filetype=html " highlight ejs with html syntax
 
@@ -94,6 +99,7 @@ au BufNewFile,BufRead *.ejs set filetype=html " highlight ejs with html syntax
 set tabstop=2    " number of visual spaces per TAB
 set softtabstop=2    " number of spaces in tab when editing
 set shiftwidth=2  " indent two spaces
+set shiftround   " rounds indent to multiple of shiftwidth
 set expandtab    " tabs are spaces
 set smarttab
 
