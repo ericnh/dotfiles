@@ -40,7 +40,7 @@ alias tailBH="tail -f /web/vhosts/sandbox.bluehawk.evanta.com/website/data/logs/
 
 # edit this profile
 alias profile="cat ~/.bashrc"
-function editProfile() {
+function edit_profile() {
   vim ~/.bashrc
   source ~/.bashrc
 }
@@ -85,6 +85,10 @@ function pull_db() {
   rake db:create
   pg_restore --verbose --no-acl --no-owner -h localhost -d evanta365 /web/vhosts/eventbeyond_api/latest.dump
   rake db:migrate
+}
+
+function make_note() {
+  vim ~/notes/$1
 }
 
 function heroku_stage() {
