@@ -12,6 +12,7 @@ call vundle#begin()
   Plugin 'valloric/youcompleteme'      " code completion
   Plugin 'easymotion/vim-easymotion'   " movement helper
   Plugin 'tpope/vim-rails'             " rails helper
+  Plugin 'tpope/vim-surround'          " editor helper
   Plugin 'scrooloose/nerdcommenter'    " comment helper
   Plugin 'vim-airline/vim-airline'     " statusline helper
   Plugin 't9md/vim-textmanip'          " movement helper
