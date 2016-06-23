@@ -10,6 +10,7 @@ call vundle#begin()
   Plugin 'scrooloose/nerdtree'         " file management
   Plugin 'mileszs/ack.vim'             " text search
   Plugin 'valloric/youcompleteme'      " code completion
+  Plugin 'easymotion/vim-easymotion'   " movement helper
   Plugin 'tpope/vim-rails'             " rails helper
   Plugin 'scrooloose/nerdcommenter'    " comment helper
   Plugin 'vim-airline/vim-airline'     " statusline helper
@@ -27,12 +28,11 @@ map <space> <leader>
 set showcmd
 
 """ CUSTOM MAPPINGS
-" newline
-nnoremap <CR> o<esc>
+" nnoremap <CR> o<esc>
 " select all
 nnoremap <M-a> ggvG$
 " quick save
-nnoremap <leader>s :w<CR> 
+nmap <C-s> :write<CR>
 " easy scrolling
 nnoremap J <C-e>
 nnoremap K <C-y>
@@ -40,28 +40,25 @@ nnoremap K <C-y>
 nnoremap j gj
 nnoremap k gk
 " move to beginning/end of line
-map B ^
-map E $
+map H ^
+map L $
 " window navigation
 nmap <silent> <Up> :wincmd k<CR>
 nmap <silent> <Down> :wincmd j<CR>
 nmap <silent> <Left> :wincmd h<CR>
 nmap <silent> <Right> :wincmd l<CR>
+" Redo symetrically
+nnoremap U <C-r>
  
 """ PLUGIN MAPPINGS
 " nerdtree mapping
 map <leader>t :NERDTreeToggle<CR>
+" nerdcommenter settings
+let NERDSpaceDelims=1 " Add space after comment mark
 " ctrlspace mappings
 map <leader>h :CtrlSpace<CR>
-map <leader>H :CtrlSpace<CR>H
 map <leader>l :CtrlSpace<CR>l
-map <leader>L :CtrlSpace<CR>L
-map <leader>o :CtrlSpace<CR>o
-map <leader>O :CtrlSpace<CR>O
-map <leader>b :CtrlSpace<CR>b
-map <leader>B :CtrlSpace<CR>B
-map <leader>w :CtrlSpace<CR>w
-map <leader>W :CtrlSpace<CR>W
+map <leader>o :CtrlSpace<CR>O
 " ctrlspace settings
 set hidden          " not sure what this one does, I think ctrl space wanted it
 set showtabline=0   " ctrlspace organizes the tabs in a list
@@ -87,7 +84,9 @@ nmap <C-j> <Plug>(textmanip-move-down)
 xmap <C-k> <Plug>(textmanip-move-up)
 nmap <C-k> <Plug>(textmanip-move-up)
 xmap <C-h> <Plug>(textmanip-move-left)
+nmap <C-h> <Plug>(textmanip-move-left)
 xmap <C-l> <Plug>(textmanip-move-right)
+nmap <C-l> <Plug>(textmanip-move-right)
 
 
 """ SYNTAX
@@ -105,7 +104,10 @@ set smarttab
 
 " GUI
 color desert
-set guioptions -=T   " remove dumb fucking toolbar on gvim
+" remove dumb fucking toolbar on gvim
+if has("gui_running")
+  set guioptions -=T 
+endif
 " haxor list colors
 highlight Pmenu guibg=black guifg=green 
 highlight PmenuSel guibg=green guifg=black gui=bold
@@ -117,3 +119,6 @@ highlight LineNr ctermfg=16
 set noswapfile    " seem to be more trouble than they are worth
 set cursorline    " highlight current line
 
+" SEARCH
+set incsearch
+map f <Plug>(easymotion-s)
