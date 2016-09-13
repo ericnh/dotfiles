@@ -9,13 +9,15 @@ call vundle#begin()
   Plugin 'vim-ctrlspace/vim-ctrlspace' " project management
   Plugin 'scrooloose/nerdtree'         " file management
   Plugin 'mileszs/ack.vim'             " text search
-  Plugin 'valloric/youcompleteme'      " code completion
+  " Plugin 'valloric/youcompleteme'      " code completion
   Plugin 'easymotion/vim-easymotion'   " movement helper
   Plugin 'tpope/vim-rails'             " rails helper
   Plugin 'tpope/vim-surround'          " editor helper
   Plugin 'scrooloose/nerdcommenter'    " comment helper
   Plugin 'vim-airline/vim-airline'     " statusline helper
   Plugin 't9md/vim-textmanip'          " movement helper
+  Plugin 'terryma/vim-multiple-cursors' " suckit sublime
+  Plugin 'vim-scripts/ZoomWin'         " window focus
   Plugin 'vim-coffee-script'           " syntax coffee
   Plugin 'briancollins/vim-jst'        " syntax jst
   Plugin 'cakebaker/scss-syntax.vim'   " syntax sass
@@ -34,6 +36,7 @@ set showcmd
 nnoremap <M-a> ggvG$
 " quick save
 nmap <C-s> :write<CR>
+nmap S :write<CR>
 " easy scrolling
 nnoremap J <C-e>
 nnoremap K <C-y>
@@ -75,10 +78,10 @@ endif
 " ack mapping
 nnoremap <leader>a :Ack<space>
 " textmanip duplicate lines
-xmap <D-d> <Plug>(textmanip-duplicate-down)
-nmap <D-d> <Plug>(textmanip-duplicate-down)
-xmap <D-D> <Plug>(textmanip-duplicate-up)
-nmap <D-D> <Plug>(textmanip-duplicate-up)
+xmap <C-d> <Plug>(textmanip-duplicate-down)
+nmap <C-d> <Plug>(textmanip-duplicate-down)
+xmap <C-D> <Plug>(textmanip-duplicate-up)
+nmap <C-D> <Plug>(textmanip-duplicate-up)
 " textmanip move lines
 xmap <C-j> <Plug>(textmanip-move-down)
 nmap <C-j> <Plug>(textmanip-move-down)
@@ -105,6 +108,7 @@ set smarttab
 
 " GUI
 color desert
+set autoread " get rid of warning after git makes a change to a file
 " remove dumb fucking toolbar on gvim
 if has("gui_running")
   set guioptions -=T 
@@ -123,3 +127,4 @@ set cursorline    " highlight current line
 " SEARCH
 set incsearch
 map f <Plug>(easymotion-s)
+

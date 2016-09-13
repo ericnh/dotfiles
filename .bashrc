@@ -1,3 +1,5 @@
+# evil mode
+set -o vi
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 # from bash_profile
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/share/npm/bin:$PATH"
@@ -19,7 +21,7 @@ PS1='\[\e[00;36m\]\W\[\e[0m\][\[\e[00;32m\]$(git_branch)\[\e[0m\]]$ '
 
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
-export EDITOR=vim
+export EDITOR=mvim
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
@@ -28,6 +30,7 @@ alias tailit='tail -f website/data/logs/php_errors'
 alias startAccess="sh /web/vhosts/start_development_server.sh"
 alias vssh="cd ~/vagrant/evanta_old && vagrant ssh"
 alias server_start='sh ./server_start.sh'
+alias ss='sh ./server_start.sh'
 
 alias rake!='rake db:drop && rake db:create'
 alias raker!='bin/rake db:migrate RAILS_ENV=test'
@@ -39,7 +42,7 @@ alias bh="cd /web/vhosts/sandbox.bluehawk.evanta.com/website/"
 alias tailBH="tail -f /web/vhosts/sandbox.bluehawk.evanta.com/website/data/logs/php_errors"
 
 # edit this profile
-alias profile="cat ~/.bashrc"
+alias profile="less ~/.bashrc"
 function edit_profile() {
   vim ~/.bashrc
   source ~/.bashrc
@@ -52,7 +55,7 @@ function herokuu() {
       echo "The 'herokuu' command requires an option: 'herokuu logs', 'herokuu console', 'herokuu rake db:migrate'."
     else
       PS3="What application do you want to $@? "
-      options=("api-eventbeyond" "stage-api-eventbeyond" "eventbeyond" "stage-eventbeyond" "admin-eventbeyond" "stage-admin-eventbeyond" "oldadmin-eventbeyond" "stage-oldadmin-eventbeyond" "Quit")
+      options=("api-eventbeyond" "stage-api-eventbeyond" "eventbeyond" "stage-eventbeyond" "admin-eventbeyond" "stage-admin-eventbeyond" "oldadmin-eventbeyond" "stage-oldadmin-eventbeyond" "api-lms" "stage-api-lms" "Quit")
       run = true
       select opt in "${options[@]}"
       do
