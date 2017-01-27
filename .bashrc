@@ -31,6 +31,7 @@ alias startAccess="sh /web/vhosts/start_development_server.sh"
 alias vssh="cd ~/vagrant/evanta_old && vagrant ssh"
 alias server_start='sh ./server_start.sh'
 alias ss='sh ./server_start.sh'
+alias ussr='sh ./server_start.sh'
 
 alias rake!='rake db:drop && rake db:create'
 alias raker!='bin/rake db:migrate RAILS_ENV=test'
@@ -114,4 +115,7 @@ function stage_diff() {
   git pull origin develop &&
   git difftool origin/heroku_stage develop
 }
+alias reset_stage_lms_database='heroku pg:reset DATABASE_URL --app stage-api-lms --confirm stage-api-lms; heroku run rake newclear --app stage-api-lms;'
 
+export NVM_DIR="/Users/eric/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

@@ -9,18 +9,19 @@ call vundle#begin()
   Plugin 'vim-ctrlspace/vim-ctrlspace' " project management
   Plugin 'scrooloose/nerdtree'         " file management
   Plugin 'mileszs/ack.vim'             " text search
-  " Plugin 'valloric/youcompleteme'      " code completion
   Plugin 'easymotion/vim-easymotion'   " movement helper
-  Plugin 'tpope/vim-rails'             " rails helper
+  Plugin 't9md/vim-textmanip'          " movement helper
   Plugin 'tpope/vim-surround'          " editor helper
   Plugin 'scrooloose/nerdcommenter'    " comment helper
-  Plugin 'vim-airline/vim-airline'     " statusline helper
-  Plugin 't9md/vim-textmanip'          " movement helper
-  Plugin 'terryma/vim-multiple-cursors' " suckit sublime
   Plugin 'vim-scripts/ZoomWin'         " window focus
+  Plugin 'tpope/vim-rails'             " rails helper
   Plugin 'vim-coffee-script'           " syntax coffee
   Plugin 'briancollins/vim-jst'        " syntax jst
   Plugin 'cakebaker/scss-syntax.vim'   " syntax sass
+  Plugin 'leafgarland/typescript-vim'  " syntax typescript
+  if has("gui_running")
+    Plugin 'valloric/youcompleteme'      " code completion
+  endif
 call vundle#end()            " required
 " see :h vundle for more details or wiki for FAQ
 
@@ -92,6 +93,8 @@ nmap <C-h> <Plug>(textmanip-move-left)
 xmap <C-l> <Plug>(textmanip-move-right)
 nmap <C-l> <Plug>(textmanip-move-right)
 
+nmap gl :Loremipsum 5<CR>
+
 
 """ SYNTAX
 filetype plugin indent on
@@ -128,3 +131,8 @@ set cursorline    " highlight current line
 set incsearch
 map f <Plug>(easymotion-s)
 
+" TYPESCRIPT
+if !exists("g:ycm_semantic_triggers")
+  let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers['typescript'] = ['.']
