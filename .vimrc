@@ -1,6 +1,6 @@
 """ PLUGINS
 set nocompatible                  " be iMproved, required 
-syntax on
+syntax enable
 filetype off                      " required 
 set rtp+=~/.vim/bundle/Vundle.vim " set the runtime path to include Vundle and initialize
 
@@ -17,8 +17,12 @@ call vundle#begin()
   Plugin 'tpope/vim-rails'             " rails helper
   Plugin 'vim-coffee-script'           " syntax coffee
   Plugin 'briancollins/vim-jst'        " syntax jst
+  Plugin 'pangloss/vim-javascript'     " syntax javascript
   Plugin 'cakebaker/scss-syntax.vim'   " syntax sass
   Plugin 'leafgarland/typescript-vim'  " syntax typescript
+  Plugin 'junegunn/goyo.vim'           " distraction free mode
+  Plugin 'junegunn/limelight.vim'      " highlight stanza
+  Plugin 'junegunn/seoul256.vim'       " color scheme
   if has("gui_running")
     Plugin 'valloric/youcompleteme'      " code completion
   endif
@@ -56,28 +60,36 @@ nmap <silent> <Right> :wincmd l<CR>
 nnoremap U <C-r>
  
 """ PLUGIN MAPPINGS
+
 " nerdtree mapping
 map <leader>t :NERDTreeToggle<CR>
+
 " nerdcommenter settings
 let NERDSpaceDelims=1 " Add space after comment mark
+
 " ctrlspace mappings
 map <leader>h :CtrlSpace<CR>
 map <leader>l :CtrlSpace<CR>l
 map <leader>o :CtrlSpace<CR>O
+
 " ctrlspace settings
 set hidden          " not sure what this one does, I think ctrl space wanted it
 set showtabline=0   " ctrlspace organizes the tabs in a list
+
 " ctrlspace font settings when gui running
 if has("gui_running")
     let g:CtrlSpaceSymbols = { "File": "◯", "CTab": "▣", "Tabs": "▢" }
 endif
+
 " ctrlspace and ack use ag for search
 if executable("ag")
     let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
     let g:ackprg = 'ag --vimgrep'
 endif
+
 " ack mapping
 nnoremap <leader>a :Ack<space>
+
 " textmanip duplicate lines
 xmap <C-d> <Plug>(textmanip-duplicate-down)
 nmap <C-d> <Plug>(textmanip-duplicate-down)
@@ -93,7 +105,18 @@ nmap <C-h> <Plug>(textmanip-move-left)
 xmap <C-l> <Plug>(textmanip-move-right)
 nmap <C-l> <Plug>(textmanip-move-right)
 
-nmap gl :Loremipsum 5<CR>
+" goyo
+nmap <leader>g :Goyo<CR>
+function! s:goyo_enter()
+  set scrolloff=999
+  Limelight
+endfunction
+function! s:goyo_leave()
+  set scrolloff=5
+  Limelight!
+endfunction
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 
 """ SYNTAX
@@ -110,7 +133,8 @@ set expandtab    " tabs are spaces
 set smarttab
 
 " GUI
-color desert
+set t_Co=256
+color seoul256
 set autoread " get rid of warning after git makes a change to a file
 " remove dumb fucking toolbar on gvim
 if has("gui_running")
@@ -119,13 +143,11 @@ endif
 " haxor list colors
 highlight Pmenu guibg=black guifg=green 
 highlight PmenuSel guibg=green guifg=black gui=bold
-" show line numbers in dark grey
-set number
-highlight LineNr ctermfg=16
 
 " MISC
 set noswapfile    " seem to be more trouble than they are worth
 set cursorline    " highlight current line
+set linebreak     " dont break words over lines
 
 " SEARCH
 set incsearch
@@ -136,3 +158,7 @@ if !exists("g:ycm_semantic_triggers")
   let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
+
+" enable fuzzy search
+set path+=**
+set wildmenu

@@ -22,6 +22,7 @@ PS1='\[\e[00;36m\]\W\[\e[0m\][\[\e[00;32m\]$(git_branch)\[\e[0m\]]$ '
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 export EDITOR=mvim
+export GIT_EDITOR="mvim -f"
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
@@ -35,7 +36,8 @@ alias ussr='sh ./server_start.sh'
 
 alias rake!='rake db:drop && rake db:create'
 alias raker!='bin/rake db:migrate RAILS_ENV=test'
-alias l='ls -lah'
+alias l='ls'
+alias ll='ls -lah'
 alias restartVirtualBox='sudo /Library/StartupItems/VirtualBox/VirtualBox restart'
 
 # project shortcuts
@@ -49,8 +51,16 @@ function edit_profile() {
   source ~/.bashrc
 }
 
+# connect to local, stage, and prod dbs using pgcli
+function local_db() {
+  pgcli evanta365
+}
+function stage_db() {
+  pgcli -h ec2-54-225-90-104.compute-1.amazonaws.com -p 5472 -U u3s7dic324gu6p -d d4ar0jetqtd0qp -W pdkjtcdh8o6b8g8atn2nehlus56
+}
+
 # Should allow you to run heroku rails tasks i.e. herokuu run rake db:migrate
-function herokuu() {
+function herokuuu:() {
   if [ ! "$1" ]
     then
       echo "The 'herokuu' command requires an option: 'herokuu logs', 'herokuu console', 'herokuu rake db:migrate'."
@@ -115,7 +125,17 @@ function stage_diff() {
   git pull origin develop &&
   git difftool origin/heroku_stage develop
 }
+
+function read_md() {
+  pandoc $1 | lynx -stdin
+}
+
 alias reset_stage_lms_database='heroku pg:reset DATABASE_URL --app stage-api-lms --confirm stage-api-lms; heroku run rake newclear --app stage-api-lms;'
 
-export NVM_DIR="/Users/eric/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+export NVM_DIR="$HOME/.nvm"
+  . "/usr/local/opt/nvm/nvm.sh"
+
+# git tab completion
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+. $(brew --prefix)/etc/bash_completion
+fi
