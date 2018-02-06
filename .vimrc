@@ -15,6 +15,7 @@ call vundle#begin()
   Plugin 'scrooloose/nerdcommenter'    " comment helper
   Plugin 'vim-scripts/ZoomWin'         " window focus
   Plugin 'tpope/vim-rails'             " rails helper
+  Plugin 'tpope/vim-fugitive'          " git helper
   Plugin 'vim-coffee-script'           " syntax coffee
   Plugin 'briancollins/vim-jst'        " syntax jst
   Plugin 'pangloss/vim-javascript'     " syntax javascript
@@ -58,6 +59,9 @@ nmap <silent> <Left> :wincmd h<CR>
 nmap <silent> <Right> :wincmd l<CR>
 " Redo symetrically
 nnoremap U <C-r>
+" toggle line numbers
+nmap <leader>n :set invnumber<CR>
+
  
 """ PLUGIN MAPPINGS
 
@@ -69,6 +73,7 @@ let NERDSpaceDelims=1 " Add space after comment mark
 
 " ctrlspace mappings
 map <leader>h :CtrlSpace<CR>
+map <leader><space> :CtrlSpace<CR>
 map <leader>l :CtrlSpace<CR>l
 map <leader>o :CtrlSpace<CR>O
 
@@ -118,6 +123,9 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
+" limelight
+nmap <leader>G :Limelight!!<CR>
+
 
 """ SYNTAX
 filetype plugin indent on
@@ -140,6 +148,7 @@ set autoread " get rid of warning after git makes a change to a file
 if has("gui_running")
   set guioptions -=T 
 endif
+set guifont=Menio\ Regular:h24
 " haxor list colors
 highlight Pmenu guibg=black guifg=green 
 highlight PmenuSel guibg=green guifg=black gui=bold
@@ -162,3 +171,9 @@ let g:ycm_semantic_triggers['typescript'] = ['.']
 " enable fuzzy search
 set path+=**
 set wildmenu
+
+" vimdiff
+if expand('%:t') == 'COMMIT_EDITMSG'
+    echo 'commiting'
+endif
+

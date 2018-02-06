@@ -21,8 +21,8 @@ PS1='\[\e[00;36m\]\W\[\e[0m\][\[\e[00;32m\]$(git_branch)\[\e[0m\]]$ '
 
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
-export EDITOR=mvim
-export GIT_EDITOR="mvim -f"
+export EDITOR=vim
+# export GIT_EDITOR="mvim -f"
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
