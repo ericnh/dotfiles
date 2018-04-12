@@ -143,7 +143,9 @@ set smarttab
 " GUI
 set t_Co=256
 color seoul256
-set autoread " get rid of warning after git makes a change to a file
+" get rid of warning after git makes a change to a file
+set autoread 
+au CursorHold * checktime
 " remove dumb fucking toolbar on gvim
 if has("gui_running")
   set guioptions -=T 
