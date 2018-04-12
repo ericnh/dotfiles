@@ -36,8 +36,8 @@ alias ussr='sh ./server_start.sh'
 
 alias rake!='rake db:drop && rake db:create'
 alias raker!='bin/rake db:migrate RAILS_ENV=test'
-alias l='ls'
-alias ll='ls -lah'
+alias l='ls -lah'
+alias ll='l | less'
 alias restartVirtualBox='sudo /Library/StartupItems/VirtualBox/VirtualBox restart'
 
 # project shortcuts
