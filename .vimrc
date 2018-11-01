@@ -53,10 +53,8 @@ nnoremap k gk
 map H ^
 map L $
 " window navigation
-nmap <silent> <Up> :wincmd k<CR>
-nmap <silent> <Down> :wincmd j<CR>
-nmap <silent> <Left> :wincmd h<CR>
-nmap <silent> <Right> :wincmd l<CR>
+nmap <silent> <Left> :wincmd <<CR>
+nmap <silent> <Right> :wincmd ><CR>
 " Redo symetrically
 nnoremap U <C-r>
 " toggle line numbers
